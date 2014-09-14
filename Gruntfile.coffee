@@ -6,8 +6,8 @@ module.exports = (grunt) ->
       dev:
         expand: true
         cwd: 'app'
-        files: ['**']
-        tasks: ['copy:veb', 'coffee:dev']
+        files: ['**/*.html', '**/*.coffee']
+        tasks: ['copy:debug', 'coffee:compile']
       coffee:
         files: 'app/*.coffee'
         tasks: ['coffee:dev']
@@ -43,6 +43,11 @@ module.exports = (grunt) ->
             ['**/*.coffee']
 
     copy:
+      debug:
+        expand: true
+        cwd: 'app'
+        src: ['**', '!**/*.coffee', '!lib/bower_components/*.*']
+        dest: 'target/'
       dev:
         expand: true
         cwd: 'app'

@@ -1,5 +1,7 @@
 require [
-  "angular"
-  "ui-bootstrap"
+  'angular'
+  'ui-bootstrap'
+  'pixi'
+  'main'
   ], (angular) ->
-    angular.bootstrap document, ["ui.bootstrap"]
+    angular.bootstrap document, ['ui.bootstrap', 'pixiApp']

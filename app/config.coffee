@@ -12,13 +12,16 @@ require.config
       deps: ['angular']
     'ui-bootstrap':
       deps: ['angular']
+    'pixi':
+      exports: 'pixi'
 
   paths:
     'angular': 'lib/bower_components/angular/angular'
-    'btford.socket-io': 'lib/bower_components/angular-socket-io/socket',
-    'socket.io': 'lib/socket.io',
-    'ui-router': 'lib/bower_components/angular-ui-router/release/angular-ui-router',
-    'ui-bootstrap': 'lib/bower_components/angular-bootstrap/ui-bootstrap-tpls',
+    'btford.socket-io': 'lib/bower_components/angular-socket-io/socket'
+    'socket.io': 'lib/socket.io'
+    'ui-router': 'lib/bower_components/angular-ui-router/release/angular-ui-router'
+    'ui-bootstrap': 'lib/bower_components/angular-bootstrap/ui-bootstrap-tpls'
+    'pixi': 'lib/pixi/pixi.dev'
 
   modules:
     name: 'boot'
