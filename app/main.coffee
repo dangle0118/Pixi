@@ -1,65 +1,52 @@
-define ['angular', 'pixi', 'ui-router' ],
-  (angular, PIXI) ->
+define [
+  'angular'
+  'ui-router'
+], (
+  angular
+) ->
+
+
     
-    
-    class MainCtrl
-      constructor: ($scope)->
-        $scope.init = 'hello world'
+  class MainCtrl
+    constructor: ($scope, GameEngine, Preload, Menu) ->
+      $scope.init = 'hello world'
 
-        $scope.show = ->
-          stage = $scope.stage
-          renderer = $scope.renderer
+      console.log Preload
+      game = new GameEngine.Game(288, 505, GameEngine.AUTO, 'gamestage')
 
-          farTexture = PIXI.Texture.fromImage 'img/bg-far.png'
-          farSprite = new PIXI.TilingSprite farTexture, 512, 256
-          farSprite.position.x = 0
-          farSprite.position.y = 0
-          farSprite.tilePosition.x = 0
-          farSprite.tilePosition.y = 0
-          stage.addChild farSprite
+      game.state.add 'Boot', Preload
+      game.state.add 'Menu', Menu
 
-          midTexture = PIXI.Texture.fromImage "img/bg-mid.png"
-          mid = new PIXI.TilingSprite midTexture, 512, 256
-          mid.position.x = 0
-          mid.position.y = 128
-          mid.tilePosition.x = 0
-          mid.tilePosition.y = 0
-          stage.addChild mid
-          update = ->
-            farSprite.tilePosition.x -= 0.056
-            mid.tilePosition.x -= 0.8
-            renderer.render stage
-            window.requestAnimFrame update
-            console.log 'hello'
-            return
 
-          window.requestAnimFrame update
-          return
+      game.state.start 'Boot'
 
 
 
 
-    PixiRender = ($window)->
-      restrict: 'A'
-      scope:
-        pixi: '='
-        renderer: '='
-      link: (scope, elm, attr) ->
-        scope.pixi = new PIXI.Stage 0x66FF99
-        scope.renderer = PIXI.autoDetectRenderer 512, 384, elm[0]
 
 
-    angular.module 'pixiApp', ['ui.router']
-      .run [
-        '$rootScope'
-        '$state'
-        '$stateParams'
-        ($rootScope, $state, $stateParams) ->
-          $rootScope.$state = $state
-          $rootScope.$stateParams = $stateParams
-      ]
-      .directive 'pixiRender', ['$window', PixiRender]
-      .controller 'MainCtrl', ['$scope',MainCtrl ]
+
+  PixiRender = ($window)->
+    restrict: 'A'
+    scope:
+      pixi: '='
+      renderer: '='
+    link: (scope, elm, attr) ->
+#        scope.pixi = new PIXI.Stage 0x66FF99
+#        scope.renderer = PIXI.autoDetectRenderer 512, 384, elm[0]
+
+
+  angular.module 'pixiApp', ['ui.router', 'gameState']
+    .run [
+      '$rootScope'
+      '$state'
+      '$stateParams'
+      ($rootScope, $state, $stateParams) ->
+        $rootScope.$state = $state
+        $rootScope.$stateParams = $stateParams
+    ]
+    .directive 'pixiRender', ['$window', PixiRender]
+    .controller 'MainCtrl', ['$scope', 'GameEngine', 'Preload', 'Menu',  MainCtrl ]
 
 
     

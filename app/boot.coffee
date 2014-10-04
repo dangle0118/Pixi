@@ -1,7 +1,9 @@
 require [
   'angular'
+  'phaser'
   'ui-bootstrap'
-  'pixi'
   'main'
-  ], (angular) ->
-    angular.bootstrap document, ['ui.bootstrap', 'pixiApp']
+  'state'
+  'service'
+], (angular) ->
+    angular.bootstrap document, ['ui.bootstrap', 'pixiApp', 'gameState', 'main.service']
