@@ -2,6 +2,7 @@ require.config
   baseUrl: 'http://localhost:3030/'
   packages: [
     'state'
+    'object'
   ]
   shim:
     'angular':

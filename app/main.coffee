@@ -8,7 +8,7 @@ define [
 
     
   class MainCtrl
-    constructor: ($scope, GameEngine, Preload, Menu) ->
+    constructor: ($scope, GameEngine, Preload, Menu, Play) ->
       $scope.init = 'hello world'
 
       console.log Preload
@@ -16,6 +16,7 @@ define [
 
       game.state.add 'Boot', Preload
       game.state.add 'Menu', Menu
+      game.state.add 'Play', Play
 
 
       game.state.start 'Boot'
@@ -26,7 +27,7 @@ define [
 
 
 
-  PixiRender = ($window)->
+  PixiRender = ($window) ->
     restrict: 'A'
     scope:
       pixi: '='
@@ -36,7 +37,7 @@ define [
 #        scope.renderer = PIXI.autoDetectRenderer 512, 384, elm[0]
 
 
-  angular.module 'pixiApp', ['ui.router', 'gameState']
+  angular.module 'pixiApp', ['ui.router', 'game.gameState']
     .run [
       '$rootScope'
       '$state'
@@ -46,7 +47,7 @@ define [
         $rootScope.$stateParams = $stateParams
     ]
     .directive 'pixiRender', ['$window', PixiRender]
-    .controller 'MainCtrl', ['$scope', 'GameEngine', 'Preload', 'Menu',  MainCtrl ]
+    .controller 'MainCtrl', ['$scope', 'GameEngine', 'Preload', 'Menu', 'Play', MainCtrl ]
 
 
     

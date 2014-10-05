@@ -16,7 +16,7 @@ define ['phaser'], ->
 
     update: ->
       if @ready is true
-        @game.state.start 'Menu'
+        @game.state.start 'Play'
       return
 
     onLoadComplete: =>

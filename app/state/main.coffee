@@ -2,10 +2,12 @@ define [
   'angular'
   './Preload'
   './Menu'
+  './Play'
   'phaser'
-], (angular, Preload, Menu) ->
+], (angular, Preload, Menu, Play) ->
 
   angular
-    .module 'gameState', []
+    .module 'game.gameState', ['game.gameObject']
     .service 'Preload', ['GameEngine', Preload]
     .service 'Menu', Menu
+    .service 'Play',  ['gameObject', Play]
