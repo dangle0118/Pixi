@@ -12,6 +12,7 @@ define ['phaser'], ->
       @game.load.image 'title', '../img/flappybird/title.png'
       @game.load.image 'startButton', '../img/flappybird/start-button.png'
       @game.load.spritesheet 'bird', '../img/flappybird/bird.png', 34, 24, 3
+      @game.load.spritesheet 'pipe', '../img/flappybird/pipes.png', 54, 320, 2
       return
 
     update: ->

@@ -10,6 +10,14 @@ define ['phaser'], ->
 
       @game.physics.arcade.enableBody(this)
 
+    update: ->
+      if @angle < 90
+        @angle = @angle + 2.5
+
+    flap: ->
+      @body.velocity.y = -400
+      @game.add.tween(this).to({angle: -40}, 100).start()
+
 
 
 

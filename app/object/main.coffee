@@ -2,11 +2,13 @@ define [
   'angular'
   './bird'
   './ground'
-], (angular, Bird, Ground) ->
+  './pipeGroup'
+], (angular, Bird, Ground, PipeGroup) ->
 
   gameObject = ->
     Bird: Bird
     Ground: Ground
+    PipeGroup: PipeGroup
 
   angular
     .module 'game.gameObject', []
