@@ -8,10 +8,13 @@ define ['phaser'], ->
       @animations.add 'flap'
       @animations.play 'flap', 12, true
 
+      @isAlive = false
+
       @game.physics.arcade.enableBody(this)
+      @body.allowGravity = false
 
     update: ->
-      if @angle < 90
+      if @angle < 90 and @isAlive
         @angle = @angle + 2.5
 
     flap: ->

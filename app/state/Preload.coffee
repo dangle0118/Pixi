@@ -1,7 +1,6 @@
 define ['phaser'], ->
 
   class Preload extends Phaser.State
-    ms = @
     constructor: ->
       super
     preload: ->
@@ -13,6 +12,11 @@ define ['phaser'], ->
       @game.load.image 'startButton', '../img/flappybird/start-button.png'
       @game.load.spritesheet 'bird', '../img/flappybird/bird.png', 34, 24, 3
       @game.load.spritesheet 'pipe', '../img/flappybird/pipes.png', 54, 320, 2
+
+      @game.load.image 'instructions', '../img/flappybird/instructions.png'
+      @game.load.image 'getReady', '../img/flappybird/get-ready.png'
+      @game.load.bitmapFont 'flappyfont', '../fonts/flappyfont/flappyfont.png', '../fonts/flappyfont/flappyfont.fnt'
+
       return
 
     update: ->

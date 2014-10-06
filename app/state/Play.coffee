@@ -21,19 +21,46 @@ define ['phaser'], ->
       @game.input.keyboard.addKeyCapture [Phaser.Keyboard.SPACEBAR]
 
       flapKey = @input.keyboard.addKey Phaser.Keyboard.SPACEBAR
+      flapKey.onDown.addOnce @startGame, this
       flapKey.onDown.add @bird.flap, @bird
+
+      @input.onDown.addOnce @startGame, this
       @input.onDown.add @bird.flap, @bird
 
-      @pipeGenerator = @game.time.events.loop Phaser.Timer.SECOND * 1.25, @generatePipes, this
-      @pipeGenerator.timer.start()
+      @instructionGroup = @game.add.group()
+      @instructionGroup.add @game.add.sprite(@game.width/2, 100, 'getReady')
+      @instructionGroup.add @game.add.sprite(@game.width/2, 325, 'instructions')
+      @instructionGroup.setAll 'anchor.x', 0.5
+      @instructionGroup.setAll 'anchor.y', 0.5
 
+      @score = 0
+      @scoreText = @game.add.bitmapText @game.width/2, 10, 'flappyfont', @score.toString(), 24
+      @scoreText.visible = false
+      return
 
     update: ->
       @game.physics.arcade.collide @bird, @ground, @deathHandler, null, this
       @pipes.forEach (pipeGroup) =>
+        @checkScore pipeGroup
         @game.physics.arcade.collide @bird, pipeGroup, @deathHandler, null, this
 
+    checkScore: (pipeGroup) ->
+      if pipeGroup.exists and !pipeGroup.hasScored and (pipeGroup.topPipe.world.x <= @bird.world.x)
+        console.log '12'
+        pipeGroup.hasScored = true
+        @score = @score + 1
+        @scoreText.setText @score.toString()
 
+
+    startGame: ->
+      @bird.body.allowGravity = true
+      @bird.isAlive = true
+
+      @pipeGenerator = @game.time.events.loop Phaser.Timer.SECOND * 1.25, @generatePipes, this
+      @pipeGenerator.timer.start()
+
+      @instructionGroup.destroy()
+      @scoreText.visible = true
 
     generatePipes: ->
       pipeY = @game.rnd.integerInRange -100, 100
@@ -43,8 +70,7 @@ define ['phaser'], ->
       pipeGroup.reset(@game.width + pipeGroup.width/2, pipeY)
 
     deathHandler: ->
-      console.log 'end'
-#      @game.state.start 'GameOver'
+      @game.state.start 'Play'
 
     shutdown: ->
       @game.input.keyboard.removeKey Phaser.Keyboard.SPACEBAR
