@@ -13,6 +13,8 @@ define ['phaser'], ->
       @game.physics.arcade.enableBody(this)
       @body.allowGravity = false
 
+      @flapSound = @game.add.audio 'flap'
+
     update: ->
       if @angle < 90 and @isAlive
         @angle = @angle + 2.5
@@ -20,6 +22,7 @@ define ['phaser'], ->
     flap: ->
       @body.velocity.y = -400
       @game.add.tween(this).to({angle: -40}, 100).start()
+      @flapSound.play()
 
 
 

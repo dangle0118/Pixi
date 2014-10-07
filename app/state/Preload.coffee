@@ -15,7 +15,13 @@ define ['phaser'], ->
 
       @game.load.image 'instructions', '../img/flappybird/instructions.png'
       @game.load.image 'getReady', '../img/flappybird/get-ready.png'
+
       @game.load.bitmapFont 'flappyfont', '../fonts/flappyfont/flappyfont.png', '../fonts/flappyfont/flappyfont.fnt'
+
+      @game.load.audio 'score', '../sound/score.wav'
+      @game.load.audio 'flap', '../sound/flap.wav'
+      @game.load.audio 'pipeHit', '../sound/pipe-hit.wav'
+      @game.load.audio 'groundHit', '../sound/ground-hit.wav'
 
       return
 

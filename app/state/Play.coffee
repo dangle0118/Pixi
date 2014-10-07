@@ -18,6 +18,8 @@ define ['phaser'], ->
       @ground = new @gameObject.Ground(@game, 0, 400, 335, 112)
       @game.add.existing @ground
 
+      @scoreSound = @game.add.audio 'score'
+
       @game.input.keyboard.addKeyCapture [Phaser.Keyboard.SPACEBAR]
 
       flapKey = @input.keyboard.addKey Phaser.Keyboard.SPACEBAR
@@ -46,10 +48,10 @@ define ['phaser'], ->
 
     checkScore: (pipeGroup) ->
       if pipeGroup.exists and !pipeGroup.hasScored and (pipeGroup.topPipe.world.x <= @bird.world.x)
-        console.log '12'
         pipeGroup.hasScored = true
         @score = @score + 1
         @scoreText.setText @score.toString()
+        @scoreSound.play()
 
 
     startGame: ->
